@@ -1,4 +1,4 @@
-name: Enforce Pull Request Description
+name: Pull Request Validation
 
 on:
   pull_request:
@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Check Pull Request Description
-        id: check-description
+        id: description-required
         run: |
           if [[ -z "$PR_BODY" ]]; then
             echo "::error::Pull request description is required. Please provide a description."
