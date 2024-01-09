@@ -1,0 +1,22 @@
+name: Enforce Pull Request Description
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  check-description:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Pull Request Description
+        id: check-description
+        run: |
+          if [[ -z "$PR_BODY" ]]; then
+            echo "::error::Pull request description is required. Please provide a description."
+            exit 1
+          fi
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
